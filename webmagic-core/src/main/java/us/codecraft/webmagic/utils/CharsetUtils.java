@@ -29,15 +29,28 @@ public abstract class CharsetUtils {
         String charset;
         // charset
         // 1、encoding in http header Content-Type
-        charset = UrlUtils.getCharset(contentType);
+        charset = getCharsetFromContentType(contentType);
+        if (StringUtils.isEmpty(charset)) {
+            // use default charset to decode first time
+            charset = Charset.defaultCharset().name();
+            String content = new String(contentBytes, charset);
+            // 2、charset in meta
+            charset = getCharsetFromMeta(content);
+            // 3、todo use tools as cpdetector for content decode
+        }
+        logger.debug("Auto get charset: {}", charset);
+        return charset;
+    }
+
+    private static String getCharsetFromContentType(String contentType) {
+        String charset = UrlUtils.getCharset(contentType);
         if (StringUtils.isNotBlank(contentType) && StringUtils.isNotBlank(charset)) {
-            logger.debug("Auto get charset: {}", charset);
             return charset;
         }
-        // use default charset to decode first time
-        Charset defaultCharset = Charset.defaultCharset();
-        String content = new String(contentBytes, defaultCharset);
-        // 2、charset in meta
+        return null;
+    }
+
+    private static String getCharsetFromMeta(String content) {
         if (StringUtils.isNotEmpty(content)) {
             Document document = Jsoup.parse(content);
             Elements links = document.select("meta");
@@ -45,21 +58,17 @@ public abstract class CharsetUtils {
                 // 2.1、html4.01 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 String metaContent = link.attr("content");
                 String metaCharset = link.attr("charset");
-                if (metaContent.indexOf("charset") != -1) {
+                if (metaContent.contains("charset")) {
                     metaContent = metaContent.substring(metaContent.indexOf("charset"), metaContent.length());
-                    charset = metaContent.split("=")[1];
-                    break;
+                    return metaContent.split("=")[1];
                 }
                 // 2.2、html5 <meta charset="UTF-8" />
                 else if (StringUtils.isNotEmpty(metaCharset)) {
-                    charset = metaCharset;
-                    break;
+                    return metaCharset;
                 }
             }
         }
-        logger.debug("Auto get charset: {}", charset);
-        // 3、todo use tools as cpdetector for content decode
-        return charset;
+        return null;
     }
     
 }
