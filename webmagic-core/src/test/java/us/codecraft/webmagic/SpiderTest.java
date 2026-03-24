@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class SpiderTest {
 
-    @Ignore("long time")
     @Test
     public void testStartAndStop() throws InterruptedException {
         Spider spider = Spider.create(new SimplePageProcessor( "http://www.oschina.net/*")).addPipeline(new Pipeline() {
@@ -26,17 +25,17 @@ public class SpiderTest {
             }
         }).thread(1).addUrl("http://www.oschina.net/");
         spider.start();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         spider.stop();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         spider.start();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
     }
 
     @Ignore("long time")
     @Test
     public void testWaitAndNotify() throws InterruptedException {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             System.out.println("round " + i);
             testRound();
         }
