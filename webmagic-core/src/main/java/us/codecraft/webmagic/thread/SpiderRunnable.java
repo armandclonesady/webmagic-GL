@@ -1,7 +1,6 @@
 package us.codecraft.webmagic.thread;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
