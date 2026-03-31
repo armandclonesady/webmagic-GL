@@ -13,12 +13,6 @@ import java.util.List;
  * @since 0.3.0
  */
 public abstract class BaseElementSelector implements Selector, ElementSelector {
-    private Document parse(String text) {
-        // Jsoup could not parse <tr></tr> or <td></td> tag directly
-        // https://stackoverflow.com/questions/63607740/jsoup-couldnt-parse-tr-tag
-        text = BaseSelectorUtils.preParse(text);
-        return Jsoup.parse(text);
-    }
 
     @Override
     public String select(String text) {
@@ -58,4 +52,10 @@ public abstract class BaseElementSelector implements Selector, ElementSelector {
 
     public abstract boolean hasAttribute();
 
+    private Document parse(String text) {
+        // Jsoup could not parse <tr></tr> or <td></td> tag directly
+        // https://stackoverflow.com/questions/63607740/jsoup-couldnt-parse-tr-tag
+        text = BaseSelectorUtils.preParse(text);
+        return Jsoup.parse(text);
+    }
 }
