@@ -16,14 +16,23 @@ import java.util.List;
 @Experimental
 public class SmartContentSelector implements Selector {
 
-    private int threshold = 86;
+    public static final int DEFAULT_THRESHOLD = 86;
+
+    public static final int DEFAULT_BLOCKS_WIDTH = 3;
+
+    public static final int DEFAULT_MIN_LENGTH = 5;
+
+    private int threshold;
 
     public SmartContentSelector() {
+        this.threshold = DEFAULT_THRESHOLD;
     }
 
     public SmartContentSelector(int threshold) {
         this.threshold = threshold;
     }
+
+
 
     @Override
     public String select(String html) {
@@ -34,7 +43,6 @@ public class SmartContentSelector implements Selector {
         html = html.replaceAll("&.{2,5};|&#.{2,5};", " ");			// remove special char
         html = html.replaceAll("(?is)<.*?>", "");
         List<String> lines;
-        int blocksWidth =3;
         int start;
         int end;
         StringBuilder text = new StringBuilder();
@@ -42,9 +50,9 @@ public class SmartContentSelector implements Selector {
 
         lines = Arrays.asList(html.split("\n"));
 
-        for (int i = 0; i < lines.size() - blocksWidth; i++) {
+        for (int i = 0; i < lines.size() - DEFAULT_BLOCKS_WIDTH; i++) {
             int wordsNum = 0;
-            for (int j = i; j < i + blocksWidth; j++) {
+            for (int j = i; j < i + DEFAULT_BLOCKS_WIDTH; j++) {
                 lines.set(j, lines.get(j).replaceAll("\\s+", ""));
                 wordsNum += lines.get(j).length();
             }
@@ -52,7 +60,8 @@ public class SmartContentSelector implements Selector {
         }
 
         start = -1; end = -1;
-        boolean boolstart = false, boolend = false;
+        boolean boolstart = false;
+        boolean boolend = false;
         text.setLength(0);
 
         for (int i = 0; i < indexDistribution.size() - 1; i++) {
@@ -76,7 +85,7 @@ public class SmartContentSelector implements Selector {
             if (boolend) {
                 //System.out.println(start+1 + "\t\t" + end+1);
                 for (int ii = start; ii <= end; ii++) {
-                    if (lines.get(ii).length() < 5) continue;
+                    if (lines.get(ii).length() < DEFAULT_MIN_LENGTH) continue;
                     tmp.append(lines.get(ii) + "\n");
                 }
                 String str = tmp.toString();
