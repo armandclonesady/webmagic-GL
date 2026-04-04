@@ -442,7 +442,7 @@ public class Spider implements Runnable, Task {
     }
 
     private void onDownloadSuccess(Request request, Page page) {
-        if (site.getAcceptStatCode().contains(page.getStatusCode())){
+        if (site.getAcceptStatusCode().contains(page.getStatusCode())){
             pageProcessor.process(page);
             extractAndAddRequests(page, spawnUrl);
             if (!page.getResultItems().isSkip()) {
@@ -559,9 +559,9 @@ public class Spider implements Runnable, Task {
 
     public <T> T get(String url) {
         List<String> urls = WMCollections.newArrayList(url);
-        List<T> resultItemses = getAll(urls);
-        if (resultItemses != null && resultItemses.size() > 0) {
-            return resultItemses.get(0);
+        List<T> resultItems = getAll(urls);
+        if (resultItems != null && resultItems.size() > 0) {
+            return resultItems.get(0);
         } else {
             return null;
         }

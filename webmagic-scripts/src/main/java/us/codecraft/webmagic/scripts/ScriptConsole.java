@@ -26,7 +26,7 @@ public class ScriptConsole {
                 .language(params.getLanguage()).scriptFromFile(params.getScriptFileName()).thread(params.getThread()).build();
         pageProcessor.getSite().setSleepTime(params.getSleepTime());
         pageProcessor.getSite().setRetryTimes(3);
-        pageProcessor.getSite().setAcceptStatCode(WMCollections.<Integer>newHashSet(200, 404,403, 500,502));
+        pageProcessor.getSite().setAcceptStatusCode(WMCollections.<Integer>newHashSet(200, 404,403, 500,502));
         Spider spider = Spider.create(pageProcessor).thread(params.getThread());
         spider.clearPipeline().addPipeline(new Pipeline() {
             @Override

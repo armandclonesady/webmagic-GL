@@ -48,7 +48,7 @@ public class Site {
 
     private static final Set<Integer> DEFAULT_STATUS_CODE_SET = new HashSet<Integer>();
 
-    private Set<Integer> acceptStatCode = DEFAULT_STATUS_CODE_SET;
+    private Set<Integer> acceptStatusCode = DEFAULT_STATUS_CODE_SET;
 
     private Map<String, String> headers = new HashMap<String, String>();
 
@@ -221,11 +221,11 @@ public class Site {
      * {200} by default.<br>
      * It is not necessarily to be set.<br>
      *
-     * @param acceptStatCode acceptStatCode
+     * @param acceptStatusCode acceptStatCode
      * @return this
      */
-    public Site setAcceptStatCode(Set<Integer> acceptStatCode) {
-        this.acceptStatCode = acceptStatCode;
+    public Site setAcceptStatusCode(Set<Integer> acceptStatusCode) {
+        this.acceptStatusCode = acceptStatusCode;
         return this;
     }
 
@@ -234,8 +234,8 @@ public class Site {
      *
      * @return acceptStatCode
      */
-    public Set<Integer> getAcceptStatCode() {
-        return acceptStatCode;
+    public Set<Integer> getAcceptStatusCode() {
+        return acceptStatusCode;
     }
 
     /**
@@ -393,7 +393,7 @@ public class Site {
         if (retryTimes != site.retryTimes) return false;
         if (sleepTime != site.sleepTime) return false;
         if (timeOut != site.timeOut) return false;
-        if (acceptStatCode != null ? !acceptStatCode.equals(site.acceptStatCode) : site.acceptStatCode != null)
+        if (acceptStatusCode != null ? !acceptStatusCode.equals(site.acceptStatusCode) : site.acceptStatusCode != null)
             return false;
         if (charset != null ? !charset.equals(site.charset) : site.charset != null) return false;
         if (defaultCookies != null ? !defaultCookies.equals(site.defaultCookies) : site.defaultCookies != null)
@@ -415,7 +415,7 @@ public class Site {
         result = 31 * result + retryTimes;
         result = 31 * result + cycleRetryTimes;
         result = 31 * result + timeOut;
-        result = 31 * result + (acceptStatCode != null ? acceptStatCode.hashCode() : 0);
+        result = 31 * result + (acceptStatusCode != null ? acceptStatusCode.hashCode() : 0);
         result = 31 * result + (headers != null ? headers.hashCode() : 0);
         return result;
     }
@@ -431,7 +431,7 @@ public class Site {
                 ", retryTimes=" + retryTimes +
                 ", cycleRetryTimes=" + cycleRetryTimes +
                 ", timeOut=" + timeOut +
-                ", acceptStatCode=" + acceptStatCode +
+                ", acceptStatCode=" + acceptStatusCode +
                 ", headers=" + headers +
                 '}';
     }
