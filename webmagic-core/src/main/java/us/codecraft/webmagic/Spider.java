@@ -105,7 +105,9 @@ public class Spider implements Runnable, Task {
 
     private Date startTime;
 
-    private long emptySleepTime = 30000;
+    private static final long DEFAULT_EMPTY_SLEEP_TIME = 30000;
+
+    private long emptySleepTime = DEFAULT_EMPTY_SLEEP_TIME;
 
     /**
      * create a spider with pageProcessor.
@@ -353,22 +355,6 @@ public class Spider implements Runnable, Task {
                 }
             }
             final Request request = poll;
-            //this may swallow the interruption
-//            threadPool.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        processRequest(request);
-//                        onSuccess(request);
-//                    } catch (Exception e) {
-//                        onError(request, e);
-//                        logger.error("process request " + request + " error", e);
-//                    } finally {
-//                        pageCount.incrementAndGet();
-//                        spiderScheduler.signalNewUrl();
-//                    }
-//                }
-//            });
             threadPool.execute(new SpiderRunnable(this, request));
         }
         stat.set(STAT_STOPPED);

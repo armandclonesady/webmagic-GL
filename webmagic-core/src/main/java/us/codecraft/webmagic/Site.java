@@ -30,15 +30,21 @@ public class Site {
 
     private String defaultCharset;
 
-    private int sleepTime = 5000;
+    private static final int DEFAULT_SLEEP_TIME = 5000;
+
+    private static final int DEFAULT_RETRY_SLEEP_TIME = 1000;
+
+    private static final int DEFAULT_TIME_OUT = 5000;
+
+    private int sleepTime = DEFAULT_SLEEP_TIME;
 
     private int retryTimes = 0;
 
     private int cycleRetryTimes = 0;
 
-    private int retrySleepTime = 1000;
+    private int retrySleepTime = DEFAULT_RETRY_SLEEP_TIME;
 
-    private int timeOut = 5000;
+    private int timeOut = DEFAULT_TIME_OUT;
 
     private static final Set<Integer> DEFAULT_STATUS_CODE_SET = new HashSet<Integer>();
 
