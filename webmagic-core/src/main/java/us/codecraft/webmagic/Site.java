@@ -399,16 +399,7 @@ public class Site {
     @Override
     public int hashCode() {
         int result = domain != null ? domain.hashCode() : 0;
-        result = 31 * result + (userAgent != null ? userAgent.hashCode() : 0);
-        result = 31 * result + (defaultCookies != null ? defaultCookies.hashCode() : 0);
-        result = 31 * result + (charset != null ? charset.hashCode() : 0);
-        result = 31 * result + sleepTime;
-        result = 31 * result + retryTimes;
-        result = 31 * result + cycleRetryTimes;
-        result = 31 * result + timeOut;
-        result = 31 * result + (acceptStatusCode != null ? acceptStatusCode.hashCode() : 0);
-        result = 31 * result + (headers != null ? headers.hashCode() : 0);
-        return result;
+        return Objects.hash(domain, userAgent, defaultCookies, charset, sleepTime, retryTimes, cycleRetryTimes, timeOut, acceptStatusCode, headers);
     }
 
     @Override
