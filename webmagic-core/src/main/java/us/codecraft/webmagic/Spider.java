@@ -109,7 +109,7 @@ public class Spider implements Runnable, Task {
 
     private long emptySleepTime = DEFAULT_EMPTY_SLEEP_TIME;
 
-    private static final Request STOP_REQUEST = new Request("STOP");
+    private static final Request STOP_REQUEST = new Request("STOP"); // Internal value to signify that we stop fetching
 
     /**
      * create a spider with pageProcessor.
@@ -352,36 +352,6 @@ public class Spider implements Runnable, Task {
         logger.info("Spider {} started!", getUUID());
         // interrupt won't be necessarily detected
         while (!Thread.currentThread().isInterrupted() && stat.get() == STAT_RUNNING) {
-//            Request poll = spiderScheduler.poll(this);
-//            if (poll == null) {
-//                if (threadPool.getThreadAlive() == 0) {
-//                    //no alive thread anymore , try again
-//                    poll = spiderScheduler.poll(this);
-//                    if (poll == null) {
-//                        if (exitWhenComplete) {
-//                            break;
-//                        } else {
-//                            // wait
-//                            try {
-//                                Thread.sleep(emptySleepTime);
-//                                continue;
-//                            } catch (InterruptedException e) {
-//                                Thread.currentThread().interrupt();
-//                                break;
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    // wait until new url added，
-//                    if (spiderScheduler.waitNewUrl(threadPool, emptySleepTime)) {
-//                        // if interrupted
-//                        break;
-//                    }
-//                    continue;
-//                }
-//            }
-//            final Request request = poll;
-//            threadPool.execute(new SpiderRunnable(this, request));
             try {
                 Request request = fetchNextRequest();
                 if (request == STOP_REQUEST) {
