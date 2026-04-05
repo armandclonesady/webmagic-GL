@@ -29,7 +29,7 @@ public class SpiderRunnableTest {
 
     @Test
     public void testCallsOnSuccessNoError() {
-        AtomicBoolean successCalled = new AtomicBoolean(false); // obligé d'utiliser AtomicBoolean pour que ce soit thread safe
+        AtomicBoolean successCalled = new AtomicBoolean(false); // obligé d'utiliser AtomicBoolean pour pouvoir changer une variable locoale dans une classe anonyme
         Spider spider = buildSpider(new PageProcessor() {
             @Override
             public void process(Page page) {

@@ -1,11 +1,6 @@
 package us.codecraft.webmagic;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import us.codecraft.webmagic.utils.HttpConstant;
 
@@ -389,20 +384,16 @@ public class Site {
 
         Site site = (Site) o;
 
-        if (cycleRetryTimes != site.cycleRetryTimes) return false;
-        if (retryTimes != site.retryTimes) return false;
-        if (sleepTime != site.sleepTime) return false;
-        if (timeOut != site.timeOut) return false;
-        if (acceptStatusCode != null ? !acceptStatusCode.equals(site.acceptStatusCode) : site.acceptStatusCode != null)
-            return false;
-        if (charset != null ? !charset.equals(site.charset) : site.charset != null) return false;
-        if (defaultCookies != null ? !defaultCookies.equals(site.defaultCookies) : site.defaultCookies != null)
-            return false;
-        if (domain != null ? !domain.equals(site.domain) : site.domain != null) return false;
-        if (headers != null ? !headers.equals(site.headers) : site.headers != null) return false;
-        if (userAgent != null ? !userAgent.equals(site.userAgent) : site.userAgent != null) return false;
-
-        return true;
+        return cycleRetryTimes == site.cycleRetryTimes &&
+                retryTimes == site.retryTimes &&
+                sleepTime == site.sleepTime &&
+                timeOut == site.timeOut &&
+                Objects.equals(acceptStatusCode, site.acceptStatusCode) &&
+                Objects.equals(charset, site.charset) &&
+                Objects.equals(defaultCookies, site.defaultCookies) &&
+                Objects.equals(domain, site.domain) &&
+                Objects.equals(headers, site.headers) &&
+                Objects.equals(userAgent, site.userAgent);
     }
 
     @Override
