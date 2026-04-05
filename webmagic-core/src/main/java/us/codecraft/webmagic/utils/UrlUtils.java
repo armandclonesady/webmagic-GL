@@ -73,10 +73,10 @@ public class UrlUtils {
         return host;
     }
 
-    private static Pattern patternForProtocal = Pattern.compile("[\\w]+://");
+    private static Pattern patternForProtocol = Pattern.compile("[\\w]+://");
 
     public static String removeProtocol(String url) {
-        return patternForProtocal.matcher(url).replaceAll("");
+        return patternForProtocol.matcher(url).replaceAll("");
     }
 
     public static String getDomain(String url) {
