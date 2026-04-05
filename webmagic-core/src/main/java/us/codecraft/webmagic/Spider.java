@@ -282,10 +282,8 @@ public class Spider implements Runnable, Task {
     }
 
     protected void initComponent() {
-        initDownloader();
-        initPipelines();
-        initThreadPool();
-        initRequests();
+        SpiderComponentInitializer sci = new SpiderComponentInitializer(this);
+        sci.init();
         startTime = new Date();
     }
 
